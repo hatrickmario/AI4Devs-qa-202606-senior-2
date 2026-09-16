@@ -52,8 +52,11 @@ const PositionsDetails = () => {
             }
         };
 
-        fetchInterviewFlow();
-        fetchCandidates();
+        // fetchCandidates filters by stage.title, which only exists once
+        // fetchInterviewFlow has populated `stages` — running them in
+        // parallel let fetchCandidates's update race ahead and get
+        // overwritten by fetchInterviewFlow's setStages(interviewSteps).
+        fetchInterviewFlow().then(fetchCandidates);
     }, [id]);
 
     const updateCandidateStep = async (candidateId, applicationId, newStep) => {
@@ -110,7 +113,7 @@ const PositionsDetails = () => {
             <Button variant="link" onClick={() => navigate('/positions')} className="mb-3">
                 Volver a Posiciones
             </Button>
-            <h2 className="text-center mb-4">{positionName}</h2>
+            <h2 className="text-center mb-4" data-testid="position-title">{positionName}</h2>
             <DragDropContext onDragEnd={onDragEnd}>
                 <Row>
                     {stages.map((stage, index) => (

@@ -29,7 +29,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "jest --config jest.config.js",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "bdd:gen": "bddgen",
+    "test:e2e": "bddgen && playwright test"
   },
   "eslintConfig": {
     "extends": [
@@ -48,5 +50,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "install": "^0.13.0",
+    "npx": "^10.2.2",
+    "playwright": "^1.63.0",
+    "playwright-bdd": "^9.2.1"
   }
 }
